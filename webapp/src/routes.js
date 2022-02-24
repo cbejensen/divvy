@@ -43,6 +43,12 @@ const layoutStyle = css`
 const navStyle = css`
   grid-row: 1;
   display: flex;
+  box-shadow: 4px 4px 8px black;
+  /* hide the corner of the box shadow */
+  padding-left: 20px;
+  width: calc(100% + 20px);
+  position: relative;
+  left: -20px;
 
   & > ul {
     padding: 1rem;
@@ -66,12 +72,14 @@ const logoStyle = css`
 
 const contentStyle = css`
   grid-row: 2;
+  padding: 0 48px;
 `;
 
 const linkStyle = css`
   text-decoration: none;
   color: black;
-  padding: 4px 8px;
+  padding: 12px 8px;
+  border-radius: 8px;
   font-weight: bold;
   &:hover {
     background-color: black;
