@@ -18,6 +18,7 @@ const mutation = new GraphQLObjectType({
       },
       /* eslint-disable-next-line camelcase */
       resolve (parentValue, { user_id, description, merchant_id, debit, credit, amount }) {
+        console.log('HEY HEY HEY')
         return (new TransactionModel({ user_id, description, merchant_id, debit, credit, amount })).save()
       }
     }
