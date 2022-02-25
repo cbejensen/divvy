@@ -1,17 +1,18 @@
 import React, { forwardRef } from 'react';
-import PropTypes, { string } from 'prop-types';
+import { string } from 'prop-types';
 import { css } from '@emotion/core';
+import { labelStyle } from '../../styles/label';
 
 const Radio = forwardRef(({ label, ...other }, ref) => {
   return (
-    <label css={labelStyle}>
+    <label css={wrapperStyle}>
       <input ref={ref} type="radio" {...other} />
-      {label}
+      <span css={labelStyle}>{label}</span>
     </label>
   );
 });
 
-const labelStyle = css`
+const wrapperStyle = css`
   display: block;
   > input {
     margin-right: 1rem;

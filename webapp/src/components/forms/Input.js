@@ -1,24 +1,28 @@
 import React, { forwardRef } from 'react';
 import { string } from 'prop-types';
 import { css } from '@emotion/core';
+import { labelStyle } from '../../styles/label';
 
 const Input = forwardRef(({ label, ...other }, ref) => {
   return (
-    <label css={labelStyle}>
-      {label}
-      <input ref={ref} type="text" {...other} />
+    <label css={wrapperStyle}>
+      <span css={labelStyle}>{label}</span>
+      <input css={inputStyle} ref={ref} type="text" {...other} />
     </label>
   );
 });
 
-const labelStyle = css`
-  > input {
-    display: block;
-  }
+export const wrapperStyle = css`
   &:focus-within {
     color: var(--primary);
   }
 `;
+
+const inputStyle = css`
+  width: 100%;
+  display: block;
+  padding: .5rem 1rem;
+`
 
 Input.propTypes = {
   label: string
