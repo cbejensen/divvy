@@ -2,60 +2,51 @@ import { css } from '@emotion/core';
 import React from 'react';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import { Home } from './home';
+import AddTransaction from './components/transactions/AddTransaction';
+import Layout from './layouts/layout';
 
 function AppRouter() {
+  const header = (
+    <nav css={navStyle}>
+      <div css={logoStyle}>
+        <img alt="Dyvi logo" src="src/assets/logo.png" />
+      </div>
+      <ul>
+        <li>
+          <Link css={linkStyle} to="/">
+            Home
+          </Link>
+        </li>
+        <li>
+          <Link css={linkStyle} to="/another">
+            Another route
+          </Link>
+        </li>
+      </ul>
+    </nav>
+  );
   return (
     <Router>
-      <div css={layoutStyle}>
-        <nav css={navStyle}>
-          <div css={logoStyle}>
-            <img alt="Dyvi logo" src="src/assets/logo.png" />
-          </div>
-          <ul>
-            <li>
-              <Link css={linkStyle} to="/">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link css={linkStyle} to="/another">
-                Another route
-              </Link>
-            </li>
-          </ul>
-        </nav>
-        <div className="main-content" css={contentStyle}>
+      <Layout header={header} layout="default">
+        <div css={contentStyle}>
           <Route component={Home} exact path="/" />
           <Route component={() => <div>Content for /another route</div>} exact path="/another" />
+          <Route component={() => <AddTransaction />} exact path="/add" />
         </div>
-      </div>
+      </Layout>
     </Router>
   );
 }
 
 export default AppRouter;
 
-const layoutStyle = css`
-  display: grid;
-  grid-row-gap: 24px;
-`;
-
 const navStyle = css`
-  grid-row: 1;
   display: flex;
-  box-shadow: 4px 4px 8px black;
-  /* hide the corner of the box shadow */
-  padding-left: 20px;
-  width: calc(100% + 20px);
-  position: relative;
-  left: -20px;
-
   & > ul {
-    padding: 1rem;
-    padding-top: 30px;
     flex: 1;
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 2rem;
     list-style-type: none;
   }
@@ -82,7 +73,7 @@ const linkStyle = css`
   border-radius: 8px;
   font-weight: bold;
   &:hover {
-    background-color: black;
+    background-color: var(--primary);
     color: white;
   }
 `;

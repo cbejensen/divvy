@@ -6,7 +6,6 @@ export const button = css`
   background: var(--primary);
   border: none;
   color: white;
-  font-size: 1.2rem;
   text-transform: uppercase;
   transition: .3s;
   cursor: pointer;

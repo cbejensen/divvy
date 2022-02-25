@@ -24,15 +24,16 @@ const arrowStyle = css`
 
 const cardStyle = css`
   position: relative;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.8);
-  padding: 8px 16px;
-  border-radius: 24px 0 24px 0;
+  padding: 1rem;
+  border-left: 3px solid black;
+  border-right: 3px solid black;
+  border-radius: 24px;
   transition: .3s;
   cursor: pointer;
   overflow: hidden;
   &:hover {
-    box-shadow: 2px 2px 8px black;
-    .arrow {
+    border-color: var(--primary);
+    > .arrow {
       transform: translate(0, -50%);
     }
   }

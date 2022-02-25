@@ -1,24 +1,14 @@
 import React, { Fragment } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
-import { GetTransactions, AddTransaction } from '../gql/transactions.gql';
+import { useQuery } from '@apollo/client';
+import { GetTransactions } from '../gql/transactions.gql';
 import TransactionCard from '../components/transactions/TransactionCard';
-import List from '../components/List';
 import { button } from '../styles/button';
 import { css } from '@emotion/core';
-
-const transaction = {
-  user_id: '1',
-  description: 'Something',
-  merchant_id: '2',
-  debit: true,
-  credit: false,
-  amount: 12
-};
+import { Link } from 'react-router-dom';
+import { pageHeader } from '../styles/page-header';
 
 export function Home() {
   const { loading, error, data = {} } = useQuery(GetTransactions);
-
-  const [addTransaction] = useMutation(AddTransaction);
 
   if (loading) {
     return <Fragment>Loading...</Fragment>;
@@ -29,30 +19,34 @@ export function Home() {
   }
 
   const cards = data.transactions.map(t => (
-    <li key={t.id}>
-      <TransactionCard transaction={t} />
+    <li  key={t.id} >
+      <TransactionCard transaction={t}/>
     </li>
   ));
 
   return (
     <Fragment>
-      <h1 css={h1Style}>Transactions</h1>
-      <List>{cards}</List>
-      <button css={addTransactionButtonStyle} onClick={() => addTransaction({ variables: transaction })}>
-        Add Transaction
-      </button>
+      <h1 css={pageHeader}>Transactions</h1>
+      <Link css={addTransactionStyle} to="/add" >
+        + Add Transaction
+      </Link>
+      <ul css={listStyle}>{cards}</ul>
     </Fragment>
   );
 }
 
-const h1Style = css`
-  color: var(--primary);
-  margin-bottom: 2rem;
-`;
 
-const addTransactionButtonStyle = css`
+const addTransactionStyle = css`
   ${button}
   display: block;
-  margin-top: 2rem;
-  margin-left: auto;
+  margin-bottom: 2rem;
+  width: fit-content;
+  text-decoration: none;
 `;
+
+const listStyle = css`
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`
