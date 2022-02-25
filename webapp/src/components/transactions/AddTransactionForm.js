@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
 import { css } from '@emotion/core';
 import { button } from '../../styles/button';
 import Input from '../forms/Input';
 import Radio from '../forms/Radio';
 import Select from '../forms/Select';
 import Textarea from '../forms/Textarea';
+import { AddTransaction } from '../../gql/transactions.gql';
+import { useHistory } from 'react-router-dom';
 
 // TODO: get from database
 const MERCHANTS = [
@@ -19,14 +22,38 @@ const MERCHANTS = [
 ];
 
 export default function AddTransactionForm() {
+  const history = useHistory();
+
+  const [addTransaction, { loading, error: mutationError }] = useMutation(AddTransaction, {
+    onCompleted: () => {
+      history.push('/');
+    }
+  });
+
   const [transaction, setTransaction] = useState({
     merchantId: '',
     amount: 0,
     description: '',
     credit: true
   });
+  const [errors, setErrors] = useState(false);
   const handleSubmit = e => {
     e.preventDefault();
+    const { merchantId, amount, description, credit } = transaction;
+    if (!merchantId || !description) {
+      setErrors(true);
+    } else {
+      addTransaction({
+        variables: {
+          merchant_id: merchantId,
+          amount,
+          description,
+          credit: credit,
+          debit: !credit,
+          user_id: '1'
+        }
+      });
+    }
   };
   const updateTransaction = value => {
     setTransaction(t => ({ ...t, ...value }));
@@ -35,7 +62,7 @@ export default function AddTransactionForm() {
     <form css={formStyle} onSubmit={handleSubmit}>
       <Select
         label="Merchant"
-        onChange={e => updateTransaction({ merchantId: +e.target.value })}
+        onChange={e => updateTransaction({ merchantId: e.target.value })}
         value={transaction.merchantId}
       >
         {!transaction.merchantId && <option value="">Select</option>}
@@ -47,7 +74,7 @@ export default function AddTransactionForm() {
       </Select>
       <Input
         label="Amount"
-        onChange={e => updateTransaction({ amount: e.target.value })}
+        onChange={e => updateTransaction({ amount: +e.target.value })}
         type="number"
         value={transaction.amount}
       />
@@ -66,9 +93,16 @@ export default function AddTransactionForm() {
           value={false}
         />
       </fieldset>
-      <button css={button} type="submit">
-        Submit
+      <button css={button} disabled={loading} type="submit">
+        {loading ? 'Loading...' : 'Submit'}
       </button>
+      {errors && (
+        <>
+          {!transaction.merchantId && <p css={errorStyle}>What, no merchant?! Pick one!</p>}
+          {!transaction.description && <p css={errorStyle}>You need to describe this thing!</p>}
+        </>
+      )}
+      {mutationError && <p css={errorStyle}>{mutationError}</p>}
     </form>
   );
 }
@@ -77,4 +111,8 @@ const formStyle = css`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+`;
+
+const errorStyle = css`
+  color: red;
 `;
