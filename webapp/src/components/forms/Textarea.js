@@ -29,6 +29,6 @@ Textarea.propTypes = {
   label: string
 };
 
-Textarea.displayName = 'Input';
+Textarea.displayName = 'Textarea';
 
 export default Textarea;
