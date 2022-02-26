@@ -26,9 +26,7 @@ function AppRouter() {
       </ul>
     </nav>
   );
-  const footer = (
-    <p>Made by Christian Jensen</p>
-  )
+  const footer = <p>Made by Christian Jensen</p>;
   return (
     <Router>
       <Layout footer={footer} header={header} layout="default">
@@ -47,7 +45,7 @@ export default AppRouter;
 
 const navStyle = css`
   display: flex;
-  & > ul {
+  > ul {
     flex: 1;
     display: flex;
     flex-direction: row;
@@ -56,8 +54,22 @@ const navStyle = css`
     list-style-type: none;
   }
 
-  & > ul > li:not(:first-of-type) {
-    margin-left: 16px;
+  > ul > li + li {
+    margin-left: 1rem;
+  }
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    overflow: hidden;
+    width: 100vw;
+    > div {
+      margin: auto;
+    }
+    > ul {
+      padding: 1rem;
+      padding-bottom: 2rem;
+      overflow-x: scroll;
+    }
   }
 `;
 

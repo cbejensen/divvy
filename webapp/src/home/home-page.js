@@ -8,7 +8,7 @@ export function Home() {
     <ul css={listStyle}>
       <li css={itemStyle}>
         <Link to="/transactions">
-          <Card arrow={false}>Transactions</Card>
+          <Card>Transactions</Card>
         </Link>
       </li>
     </ul>

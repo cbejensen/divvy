@@ -1,28 +1,16 @@
 import React from 'react';
 import { css } from '@emotion/core';
-import { bool, node } from 'prop-types';
+import { node } from 'prop-types';
 
-export default function Card({ children, arrow = true, ...other }) {
+export default function Card({ children, ...other }) {
   return <div css={cardStyle} {...other}>
     {children}
-    {arrow && <span className='arrow' css={arrowStyle}>&rarr;</span>}
   </div>;
 }
 
 Card.propTypes = {
   children: node,
-  arrow: bool
 };
-
-const arrowStyle = css`
-  position: absolute;
-  right: 16px;
-  bottom: 4px;
-  transform: translateX(calc(100% + 16px));
-  transition: .3s;
-  font-size: 2rem;
-  color: var(--primary);
-`
 
 const cardStyle = css`
   position: relative;
@@ -32,12 +20,8 @@ const cardStyle = css`
   border-radius: 24px;
   transition: .3s;
   cursor: pointer;
-  overflow: hidden;
   &:hover {
     border-color: var(--primary);
-    > .arrow {
-      transform: translateX(0);
-    }
   }
 `;
 
