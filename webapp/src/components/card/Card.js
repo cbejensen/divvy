@@ -16,8 +16,8 @@ Card.propTypes = {
 const arrowStyle = css`
   position: absolute;
   right: 16px;
-  top: 50%;
-  transform: translate(calc(100% + 16px), -50%);
+  bottom: 4px;
+  transform: translateX(calc(100% + 16px));
   transition: .3s;
   font-size: 2rem;
 `
@@ -34,7 +34,7 @@ const cardStyle = css`
   &:hover {
     border-color: var(--primary);
     > .arrow {
-      transform: translate(0, -50%);
+      transform: translateX(0);
     }
   }
 `;

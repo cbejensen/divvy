@@ -19,7 +19,7 @@ export function Home() {
   }
 
   const cards = data.transactions.map(t => (
-    <li  key={t.id} >
+    <li key={t.id} >
       <TransactionCard transaction={t}/>
     </li>
   ));
@@ -39,7 +39,7 @@ export function Home() {
 const addTransactionStyle = css`
   ${button}
   display: block;
-  margin-bottom: 2rem;
+  margin: 1rem auto;
   width: fit-content;
   text-decoration: none;
 `;

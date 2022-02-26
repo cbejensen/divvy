@@ -8,18 +8,8 @@ import Select from '../forms/Select';
 import Textarea from '../forms/Textarea';
 import { AddTransaction } from '../../gql/transactions.gql';
 import { useHistory } from 'react-router-dom';
-
-// TODO: get from database
-const MERCHANTS = [
-  {
-    id: 1,
-    label: 'Apple'
-  },
-  {
-    id: 2,
-    label: 'Target'
-  }
-];
+import { MERCHANTS } from '../../constants/merchants';
+import RadioGroup from '../forms/RadioGroup';
 
 export default function AddTransactionForm() {
   const history = useHistory();
@@ -68,7 +58,7 @@ export default function AddTransactionForm() {
         {!transaction.merchantId && <option value="">Select</option>}
         {MERCHANTS.map(merchant => (
           <option key={merchant.id} value={merchant.id}>
-            {merchant.label}
+            {merchant.name}
           </option>
         ))}
       </Select>
@@ -83,8 +73,7 @@ export default function AddTransactionForm() {
         onChange={e => updateTransaction({ description: e.target.value })}
         value={transaction.description}
       />
-      <fieldset>
-        <legend>Credit or Debit</legend>
+      <RadioGroup legend="Credit or Debit">
         <Radio checked={transaction.credit} label="Credit" onChange={e => updateTransaction({ credit: true })} value />
         <Radio
           checked={!transaction.credit}
@@ -92,7 +81,7 @@ export default function AddTransactionForm() {
           onChange={e => updateTransaction({ credit: false })}
           value={false}
         />
-      </fieldset>
+      </RadioGroup>
       <button css={button} disabled={loading} type="submit">
         {loading ? 'Loading...' : 'Submit'}
       </button>

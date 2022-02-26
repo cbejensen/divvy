@@ -30,6 +30,8 @@ const maxWidthStyle = css`
 const layoutStyle = css`
   display: grid;
   grid-row-gap: 24px;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
 `;
 
 const headerStyle = css`
@@ -39,11 +41,11 @@ const headerStyle = css`
   padding-left: 20px;
   width: calc(100% + 20px);
   position: relative;
-  left: -20px;
   position: sticky;
   top: 0;
   background-color: white;
   z-index: 1;
+  transform: translateX(-20px);
 `;
 
 const mainStyle = css`
