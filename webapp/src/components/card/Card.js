@@ -1,16 +1,17 @@
 import React from 'react';
 import { css } from '@emotion/core';
-import { node } from 'prop-types';
+import { bool, node } from 'prop-types';
 
-export default function Card({ children, ...other }) {
+export default function Card({ children, arrow = true, ...other }) {
   return <div css={cardStyle} {...other}>
     {children}
-    <span className='arrow' css={arrowStyle}>&rarr;</span>
+    {arrow && <span className='arrow' css={arrowStyle}>&rarr;</span>}
   </div>;
 }
 
 Card.propTypes = {
-  children: node
+  children: node,
+  arrow: bool
 };
 
 const arrowStyle = css`
@@ -20,6 +21,7 @@ const arrowStyle = css`
   transform: translateX(calc(100% + 16px));
   transition: .3s;
   font-size: 2rem;
+  color: var(--primary);
 `
 
 const cardStyle = css`

@@ -18,6 +18,9 @@ export default function TransactionCard({ transaction }) {
 
 const cardStyle = css`
   cursor: pointer;
+  &:hover h3 {
+    color: var(--primary);
+  }
 `
 
 const headerStyle = css`

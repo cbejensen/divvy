@@ -1,52 +1,35 @@
-import React, { Fragment } from 'react';
-import { useQuery } from '@apollo/client';
-import { GetTransactions } from '../gql/transactions.gql';
-import TransactionCard from '../components/transactions/TransactionCard';
-import { button } from '../styles/button';
 import { css } from '@emotion/core';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { pageHeader } from '../styles/page-header';
+import Card from '../components/card/Card';
 
 export function Home() {
-  const { loading, error, data = {} } = useQuery(GetTransactions);
-
-  if (loading) {
-    return <Fragment>Loading...</Fragment>;
-  }
-
-  if (error) {
-    return <Fragment>¯\_(ツ)_/¯</Fragment>;
-  }
-
-  const cards = data.transactions.map(t => (
-    <li key={t.id} >
-      <TransactionCard transaction={t}/>
-    </li>
-  ));
-
   return (
-    <Fragment>
-      <h1 css={pageHeader}>Transactions</h1>
-      <Link css={addTransactionStyle} to="/add" >
-        + Add Transaction
-      </Link>
-      <ul css={listStyle}>{cards}</ul>
-    </Fragment>
-  );
+    <ul css={listStyle}>
+      <li css={itemStyle}>
+        <Link to="/transactions">
+          <Card arrow={false}>Transactions</Card>
+        </Link>
+      </li>
+    </ul>
+  )
 }
-
-
-const addTransactionStyle = css`
-  ${button}
-  display: block;
-  margin: 1rem auto;
-  width: fit-content;
-  text-decoration: none;
-`;
 
 const listStyle = css`
   list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  padding: 0;
+  margin: 0;
+  `
+
+const itemStyle = css`
+  font-size: 2rem;
+  font-family: 'Righteous';
+  text-transform: uppercase;
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  &:hover {
+    color: var(--primary);
+  }
 `

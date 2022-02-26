@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import { Home } from './home';
 import AddTransaction from './components/transactions/AddTransaction';
 import Layout from './layouts/layout';
+import Transactions from './components/transactions/Transactions';
 
 function AppRouter() {
   const header = (
@@ -18,23 +19,24 @@ function AppRouter() {
           </Link>
         </li>
         <li>
-          <Link css={linkStyle} to="/another">
-            Another route
+          <Link css={linkStyle} to="/transactions">
+            Transactions
           </Link>
         </li>
       </ul>
     </nav>
   );
   const footer = (
-    <p css={footerStyle}>Made by Christian Jensen</p>
+    <p>Made by Christian Jensen</p>
   )
   return (
     <Router>
       <Layout footer={footer} header={header} layout="default">
         <div css={contentStyle}>
           <Route component={Home} exact path="/" />
-          <Route component={() => <div>Content for /another route</div>} exact path="/another" />
-          <Route component={() => <AddTransaction />} exact path="/add" />
+          <Route path="/transactions">
+            <Transactions />
+          </Route>
         </div>
       </Layout>
     </Router>
@@ -58,13 +60,6 @@ const navStyle = css`
     margin-left: 16px;
   }
 `;
-
-const footerStyle = css`
-  padding: 3rem;
-  background: black;
-  color: white;
-  text-align: center;
-`
 
 const logoStyle = css`
   width: 200px;
