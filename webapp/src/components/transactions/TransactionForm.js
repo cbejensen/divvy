@@ -11,7 +11,7 @@ import { bool, func, number, shape, string } from 'prop-types';
 
 const DEFAULT_TRANSACTION = {
   merchantId: '',
-  amount: 0,
+  amount: '0',
   description: '',
   credit: true
 };
@@ -36,10 +36,11 @@ export default function TransactionForm({ transaction, handleSubmit, handleCance
       css={formStyle}
       onSubmit={e => {
         e.preventDefault();
-        if (!formValue.merchantId || !formValue.description) {
+        const amount = parseInt(formValue.amount);
+        if (!formValue.merchantId || !formValue.description || !amount) {
           setErrors(true);
         } else {
-          handleSubmit(formValue);
+          handleSubmit({...formValue, amount });
         }
       }}
     >
@@ -55,11 +56,12 @@ export default function TransactionForm({ transaction, handleSubmit, handleCance
           </option>
         ))}
       </Select>
+      {/* Using type="number" has an annoying issue where you can't delete 0 */}
       <Input
-        label="Amount"
-        onChange={e => updateFormValue({ amount: +e.target.value })}
-        type="number"
-        value={formValue.amount}
+        label="Amount (numbers only)"
+        onChange={e => updateFormValue({ amount: e.target.value })}
+        pattern="[0-9]*"
+        value={formValue.amount.toString()}
       />
       <Textarea
         label="Description"
