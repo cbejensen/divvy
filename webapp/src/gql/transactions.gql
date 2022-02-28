@@ -10,6 +10,16 @@ query GetTransactions {
   }
 }
 
+query GetTransaction($id: String!) {
+  transaction(id: $id) {
+    id
+    description
+    merchant_id
+    credit
+    amount
+  }
+}
+
 mutation AddTransaction(
   # $id: ID!
   $user_id: String!

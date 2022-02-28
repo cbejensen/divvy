@@ -49,9 +49,9 @@ export default function TransactionForm({ transaction, handleSubmit, customError
         value={formValue.merchantId}
       >
         {!formValue.merchantId && <option value="">Select</option>}
-        {MERCHANTS.map(merchant => (
-          <option key={merchant.id} value={merchant.id}>
-            {merchant.name}
+        {Array.from(MERCHANTS).map(([id, name]) => (
+          <option key={id} value={id}>
+            {name}
           </option>
         ))}
       </Select>

@@ -7,6 +7,7 @@ import { css } from '@emotion/core';
 import { Link, Route, Switch, useRouteMatch } from 'react-router-dom';
 import { pageHeader } from '../../styles/page-header';
 import AddTransaction from './AddTransaction';
+import Transaction from './Transaction';
 
 export default function Transactions() {
   const { loading, error, data = {} } = useQuery(GetTransactions);
@@ -47,7 +48,7 @@ export default function Transactions() {
           <AddTransaction />
         </Route>
         <Route path={`${path}/:transactionId`}>
-          <p>WOOP</p>
+          <Transaction />
         </Route>
       </Switch>
     </>

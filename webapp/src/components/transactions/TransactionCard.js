@@ -3,12 +3,13 @@ import { shape, string, bool, number } from 'prop-types';
 import Card from '../card/Card';
 import { css } from '@emotion/core';
 import getMerchantName from '../../utils/getMerchantName';
+import { MERCHANTS } from '../../constants/merchants';
 
 export default function TransactionCard({ transaction }) {
   return (
     <Card css={cardStyle}>
       <div css={headerStyle}>
-        <h3>{getMerchantName(+transaction.merchant_id)}</h3>
+        <h3>{MERCHANTS.get(+transaction.merchant_id)}</h3>
         <p>${transaction.amount}</p>
       </div>
       <p>{transaction.description}</p>
