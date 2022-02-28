@@ -19,7 +19,7 @@ export default function Transactions() {
   } else if (error) {
     rendered = <p>¯\_(ツ)_/¯ not sure what happened there</p>;
   } else {
-    const cards = data.transactions.map(transaction => (
+    const cards = [...data.transactions].reverse().map(transaction => (
       <li css={cardStyle} key={transaction.id}>
         <Link to={`${url}/${transaction.id}`}>
           <TransactionCard transaction={transaction} />

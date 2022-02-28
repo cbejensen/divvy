@@ -9,9 +9,9 @@ export default function TransactionCard({ transaction }) {
     <Card css={cardStyle}>
       <div css={headerStyle}>
         <h3>{getMerchantName(+transaction.merchant_id)}</h3>
-        <p css={amountStyle}>${transaction.amount}</p>
+        <p>${transaction.amount}</p>
       </div>
-      <p css={descriptionStyle}>{transaction.description}</p>
+      <p>{transaction.description}</p>
     </Card>
   );
 }
@@ -21,23 +21,14 @@ const cardStyle = css`
   &:hover h3 {
     color: var(--primary);
   }
-`
+`;
 
 const headerStyle = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 2rem;
-`
-
-const amountStyle = css`
-  color: darkgray;
-  /* font-size: 2rem; */
-`
-
-const descriptionStyle = css`
-  /* margin-top: 2rem; */
-`
+`;
 
 TransactionCard.propTypes = {
   transaction: shape({

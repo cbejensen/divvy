@@ -2,7 +2,6 @@ import { css } from '@emotion/core';
 import React from 'react';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import { Home } from './home';
-import AddTransaction from './components/transactions/AddTransaction';
 import Layout from './layouts/layout';
 import Transactions from './components/transactions/Transactions';
 
