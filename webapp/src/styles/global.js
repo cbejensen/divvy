@@ -4,6 +4,7 @@ export const globalStyles = css`
   // Variables
   :root {
     --primary: #b7550f;
+    --error: #c03030;
     --heading-font: 'Righteous';
   }
 

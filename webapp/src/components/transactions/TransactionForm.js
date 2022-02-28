@@ -16,7 +16,7 @@ const DEFAULT_TRANSACTION = {
   credit: true
 };
 
-export default function TransactionForm({ transaction, handleSubmit, customError, loading }) {
+export default function TransactionForm({ transaction, handleSubmit, handleCancel, customError, loading }) {
   const [formValue, setFormValue] = useState(DEFAULT_TRANSACTION);
   useEffect(() => {
     setFormValue({
@@ -75,9 +75,16 @@ export default function TransactionForm({ transaction, handleSubmit, customError
           value={false}
         />
       </RadioGroup>
-      <button css={button} disabled={loading} type="submit">
-        {loading ? 'Loading...' : 'Submit'}
-      </button>
+      <div css={actionsStyle}>
+        {handleCancel && !loading && (
+          <button css={cancelButtonStyle} disabled={loading} onClick={handleCancel}>
+            Cancel
+          </button>
+        )}
+        <button css={button} disabled={loading} type="submit">
+          {loading ? 'Loading...' : 'Submit'}
+        </button>
+      </div>
       {errors && (
         <>
           {!formValue.merchantId && <p css={errorStyle}>What, no merchant?! Pick one!</p>}
@@ -90,7 +97,8 @@ export default function TransactionForm({ transaction, handleSubmit, customError
 }
 
 TransactionForm.propTypes = {
-  handleSubmit: func,
+  handleSubmit: func.isRequired,
+  handleCancel: func,
   transaction: shape({
     merchantId: string,
     amount: number,
@@ -107,6 +115,18 @@ const formStyle = css`
   gap: 1rem;
 `;
 
+const actionsStyle = css`
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  padding: 1rem 0;
+`;
+
+const cancelButtonStyle = css`
+  ${button}
+  background: var(--error);
+`;
+
 const errorStyle = css`
-  color: red;
+  color: var(--error);
 `;

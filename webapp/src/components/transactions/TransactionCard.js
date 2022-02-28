@@ -2,7 +2,6 @@ import React from 'react';
 import { shape, string, bool, number } from 'prop-types';
 import Card from '../card/Card';
 import { css } from '@emotion/core';
-import getMerchantName from '../../utils/getMerchantName';
 import { MERCHANTS } from '../../constants/merchants';
 
 export default function TransactionCard({ transaction }) {
