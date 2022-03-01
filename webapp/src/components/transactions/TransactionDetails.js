@@ -9,7 +9,7 @@ import { MERCHANTS } from '../../constants/merchants';
 import TransactionForm from './TransactionForm';
 import Number from '../Number';
 
-function Transaction() {
+function TransactionDetails() {
   const { transactionId } = useParams();
 
   const { loading, error, data = {} } = useQuery(GetTransaction, {
@@ -142,4 +142,4 @@ const removeButtonStyle = css`
   background-color: var(--error);
 `;
 
-export default Transaction;
+export default TransactionDetails;

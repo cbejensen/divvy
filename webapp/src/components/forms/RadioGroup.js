@@ -20,6 +20,9 @@ RadioGroup.propTypes = {
 const fieldsetStyle = css`
   border: none;
   padding: 0;
+  &:focus-within > legend {
+    color: var(--primary);
+  }
 `;
 
 const labelStyle = css`
