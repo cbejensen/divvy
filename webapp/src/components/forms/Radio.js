@@ -1,13 +1,12 @@
 import React, { forwardRef } from 'react';
 import { string } from 'prop-types';
 import { css } from '@emotion/core';
-import { labelStyle } from '../../styles/label';
 
 const Radio = forwardRef(({ label, ...other }, ref) => {
   return (
     <label css={wrapperStyle}>
       <input ref={ref} type="radio" {...other} />
-      <span css={labelStyle}>{label}</span>
+      <span>{label}</span>
     </label>
   );
 });

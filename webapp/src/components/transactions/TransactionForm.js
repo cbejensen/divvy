@@ -11,7 +11,7 @@ import { bool, func, number, shape, string } from 'prop-types';
 
 const DEFAULT_TRANSACTION = {
   merchantId: '',
-  amount: '0',
+  amount: '',
   description: '',
   credit: true
 };

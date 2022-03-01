@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import { Home } from './home';
 import Layout from './layouts/layout';
 import Transactions from './components/transactions/Transactions';
+import Settings from './components/Settings';
 
 function AppRouter() {
   const header = (
@@ -22,6 +23,11 @@ function AppRouter() {
             Transactions
           </Link>
         </li>
+        <li>
+          <Link css={linkStyle} to="/settings">
+            Settings
+          </Link>
+        </li>
       </ul>
     </nav>
   );
@@ -34,6 +40,7 @@ function AppRouter() {
           <Route path="/transactions">
             <Transactions />
           </Route>
+          <Route component={Settings} exact path="/settings" />
         </div>
       </Layout>
     </Router>
