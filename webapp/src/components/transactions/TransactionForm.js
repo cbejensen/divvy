@@ -79,7 +79,7 @@ export default function TransactionForm({ transaction, handleSubmit, handleCance
       </RadioGroup>
       <div css={actionsStyle}>
         {handleCancel && !loading && (
-          <button css={cancelButtonStyle} disabled={loading} onClick={handleCancel}>
+          <button css={cancelButtonStyle} disabled={loading} onClick={handleCancel} type="button">
             Cancel
           </button>
         )}

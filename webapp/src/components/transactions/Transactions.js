@@ -21,7 +21,7 @@ export default function Transactions() {
     rendered = <p>¯\_(ツ)_/¯ not sure what happened there</p>;
   } else {
     const cards = [...data.transactions].reverse().map(transaction => (
-      <li css={cardStyle} key={transaction.id}>
+      <li css={listItemStyle} key={transaction.id}>
         <Link to={`${url}/${transaction.id}`}>
           <TransactionCard transaction={transaction} />
         </Link>
@@ -70,9 +70,13 @@ const listStyle = css`
   gap: 1rem;
 `;
 
-const cardStyle = css`
+const listItemStyle = css`
+  transition: transform 0.3s;
+  &:hover {
+    transform: scale(1.1);
+  }
   > a {
     text-decoration: none;
     color: inherit;
   }
-`
+`;
