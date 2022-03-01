@@ -51,6 +51,7 @@ export default AppRouter;
 
 const navStyle = css`
   display: flex;
+  gap: 1rem;
   > ul {
     flex: 1;
     display: flex;
@@ -58,10 +59,6 @@ const navStyle = css`
     align-items: center;
     gap: 2rem;
     list-style-type: none;
-  }
-
-  > ul > li + li {
-    margin-left: 1rem;
   }
 
   @media (max-width: 600px) {
@@ -72,6 +69,8 @@ const navStyle = css`
       margin: auto;
     }
     > ul {
+      justify-content: space-between;
+      gap: 0.25rem;
       padding: 1rem;
       padding-bottom: 2rem;
       overflow-x: scroll;
