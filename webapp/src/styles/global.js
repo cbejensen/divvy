@@ -2,11 +2,16 @@ import { css } from "@emotion/core";
 
 export const globalStyles = css`
   // Variables
-  :root {
+  body {
     --primary: #b7550f;
     --error: #c03030;
     --heading-font: 'Righteous';
+    &.konami {
+      --primary: #f17e92;
+      --heading-font: 'cursive';
+    }
   }
+
 
   #react-app {
     height: 100%;

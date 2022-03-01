@@ -55,7 +55,7 @@ const mainStyle = css`
 
 const footerStyle = css`
   grid-row: 3;
-  background: black;
+  background: var(--primary);
   color: white;
   padding: 3rem;
   text-align: center;

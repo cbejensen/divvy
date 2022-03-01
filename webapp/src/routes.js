@@ -10,7 +10,9 @@ function AppRouter() {
   const header = (
     <nav css={navStyle}>
       <div css={logoStyle}>
-        <img alt="Dyvi logo" src="src/assets/logo.png" />
+        <Link to="/">
+          <img alt="Dyvi logo" src="src/assets/logo.png" />
+        </Link>
       </div>
       <ul>
         <li>
@@ -81,6 +83,10 @@ const navStyle = css`
 const logoStyle = css`
   width: 200px;
   object-fit: contain;
+  transition: transform 1s;
+  .konami & {
+    transform: rotate3d(7, 1, 4, 310deg);
+  }
 `;
 
 const contentStyle = css`
