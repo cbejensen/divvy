@@ -75,3 +75,9 @@ mutation UpdateTransaction(
     amount
   }
 }
+
+mutation RemoveTransaction($id: String!) {
+  removeTransaction(id: $id) {
+    id
+  }
+}

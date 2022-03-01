@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { pageHeader } from '../../styles/page-header';
 import { button } from '../../styles/button';
-import { GetTransaction, UpdateTransaction } from '../../gql/transactions.gql';
-import { Link, useParams } from 'react-router-dom';
+import { GetTransaction, UpdateTransaction, RemoveTransaction } from '../../gql/transactions.gql';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/client';
 import { css } from '@emotion/core';
 import { MERCHANTS } from '../../constants/merchants';
 import TransactionForm from './TransactionForm';
+import Number from '../Number';
 
 function Transaction() {
   const { transactionId } = useParams();
@@ -20,7 +21,18 @@ function Transaction() {
   const [updateTransaction] = useMutation(UpdateTransaction, {
     onCompleted: () => {
       setEditing(false);
+    }
+  });
+
+  const history = useHistory();
+  const [removeTransaction] = useMutation(RemoveTransaction, {
+    variables: {
+      id: transactionId
     },
+    refetchQueries: ['GetTransactions'],
+    onCompleted: () => {
+      history.push('/transactions');
+    }
   });
 
   const [editing, setEditing] = useState(false);
@@ -32,7 +44,12 @@ function Transaction() {
   if (error) {
     return (
       <>
-        <p>Sorry, unable to find that one! <span aria-label="eyes emoji" role="img">👀</span></p>
+        <p>
+          Sorry, unable to find that one!
+          <span aria-label="eyes emoji" role="img">
+            👀
+          </span>
+        </p>
         <Link to="/transactions">View All Transactions</Link>
       </>
     );
@@ -51,7 +68,7 @@ function Transaction() {
         credit: credit,
         debit: !credit,
         user_id: '1'
-      }, 
+      },
       refetchQueries: ['GetTransaction']
     });
   }
@@ -59,20 +76,33 @@ function Transaction() {
     setEditing(false);
   }
   if (editing) {
-    return <TransactionForm handleCancel={handleCancel} handleSubmit={handleSubmit} transaction={{...data.transaction, merchantId }} />;
+    return (
+      <TransactionForm
+        handleCancel={handleCancel}
+        handleSubmit={handleSubmit}
+        transaction={{ ...data.transaction, merchantId }}
+      />
+    );
   }
 
   return (
     <>
       <h1 css={pageHeader}>{MERCHANTS.get(+merchantId)}</h1>
       <div css={subtitleStyle}>
-        <p>${amount}</p>
+        <p>
+          $<Number value={amount} />
+        </p>
         <div>{credit ? 'credit' : 'debit'}</div>
       </div>
       <p css={descriptionStyle}>{description}</p>
-      <button css={buttonStyle} onClick={() => setEditing(true)}>
-        Edit
-      </button>
+      <div css={actionsStyle}>
+        <button css={removeButtonStyle} onClick={() => removeTransaction()}>
+          Delete
+        </button>
+        <button css={buttonStyle} onClick={() => setEditing(true)}>
+          Edit
+        </button>
+      </div>
     </>
   );
 }
@@ -91,6 +121,12 @@ const subtitleStyle = css`
   }
 `;
 
+const actionsStyle = css`
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+`;
+
 const descriptionStyle = css`
   font-size: 1.2rem;
   margin-bottom: 2rem;
@@ -99,7 +135,11 @@ const descriptionStyle = css`
 const buttonStyle = css`
   ${button}
   display: block;
-  margin: auto;
+`;
+
+const removeButtonStyle = css`
+  ${button}
+  background-color: var(--error);
 `;
 
 export default Transaction;

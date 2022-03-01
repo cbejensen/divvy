@@ -36,6 +36,16 @@ const mutation = new GraphQLObjectType({
       async resolve (parentValue, { id, ...other }) {
         return TransactionModel.findByIdAndUpdate(id, other)
       }
+    },
+    removeTransaction: {
+      type: TransactionType,
+      args: {
+        id: { type: GraphQLString },
+      },
+      /* eslint-disable-next-line camelcase */
+      async resolve (parentValue, { id }) {
+        return TransactionModel.remove({ _id: id })
+      }
     }
   }
 })
